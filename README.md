@@ -1,6 +1,3 @@
-Certainly! Here's the README.md file with proper indentation and all the content in one coherent structure:
-
-````markdown
 # Expense Tracker
 
 Expense Tracker is a web application that helps users manage their expenses. It provides features to add, view, and delete transactions, helping users keep track of their financial activities.
@@ -28,7 +25,6 @@ Follow these steps to set up and run the Expense Tracker project on your local m
 ```bash
 git clone https://github.com/your-username/expense-tracker.git
 ```
-````
 
 ### Navigate to the Project Directory
 
