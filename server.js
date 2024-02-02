@@ -64,6 +64,33 @@ app.get('/viewTransactions', async (req, res) => {
     });
 });
 
+app.delete('/deleteTransaction/:id', (req, res) => {
+    // Extract the transaction ID from the request parameters
+    const transactionId = req.params.id;
+
+    // Construct the SQL query to delete the record with the specified ID from the 'transactions_records' table
+    const query = 'DELETE FROM transactions_records WHERE id = ?';
+
+    // Execute the query with the transaction ID as a parameter
+    connection.query(query, [transactionId], (err, results) => {
+        if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        // Log the results to the console
+        console.log('Delete Query Results:', results);
+
+        // Check if any rows were affected (indicating a successful deletion)
+        if (results.affectedRows > 0) {
+            res.json({ success: true, message: 'Transaction deleted successfully' });
+        } else {
+            res.status(404).json({ success: false, message: 'Transaction not found' });
+        }
+    });
+});
+
 
 
 // Start the server

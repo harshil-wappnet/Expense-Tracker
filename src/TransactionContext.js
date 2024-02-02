@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 export const TransactionContext = createContext({
     transactions: [],
@@ -8,13 +8,33 @@ export const TransactionContext = createContext({
 });
 
 const TransactionProvider = ({ children }) => {
-    const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState(
+        JSON.parse(localStorage.getItem('transactions')) || []
+    );
     const [totalExpense, setTotalExpense] = useState(0);
+
+    const calculateTotalExpense = (transactions) => {
+        return transactions.reduce((total, transaction) => total + parseFloat(transaction.amount || 0), 0);
+    };
+
 
     const addTransaction = (newTransaction) => {
         setTransactions((prevTransactions) => [...prevTransactions, newTransaction]);
-        setTotalExpense((prevTotalExpense) => prevTotalExpense + parseFloat(newTransaction.amount));
+        //setTotalExpense((prevTotalExpense) => prevTotalExpense + parseFloat(newTransaction.amount || 0));
+        // Calculate total expense after adding a new transaction
+        setTotalExpense(calculateTotalExpense([...transactions, newTransaction]));
+
+
+
     };
+
+    useEffect(() => {
+        // Calculate total expense when transactions change
+        setTotalExpense(calculateTotalExpense(transactions));
+
+        // Save transactions to localStorage
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+    }, [transactions]);
 
     const deleteTransaction = (id) => {
         // Find the transaction with the provided ID
@@ -25,8 +45,10 @@ const TransactionProvider = ({ children }) => {
 
         setTransactions(updatedTransactions);
 
-        // Subtract the deleted transaction amount from the total expense
-        setTotalExpense((prevTotalExpense) => prevTotalExpense - parseFloat(deletedTransaction.amount));
+        // // Subtract the deleted transaction amount from the total expense
+        // setTotalExpense((prevTotalExpense) => prevTotalExpense - parseFloat(deletedTransaction.amount));
+        // Calculate total expense after deleting a transaction
+        setTotalExpense(calculateTotalExpense(updatedTransactions));
     };
 
     const contextValue = {

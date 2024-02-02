@@ -23,7 +23,7 @@ Follow these steps to set up and run the Expense Tracker project on your local m
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/expense-tracker.git
+git clone https://github.com/harshil-wappnet/expense-tracker.git
 ```
 
 ### Navigate to the Project Directory
@@ -88,11 +88,6 @@ If you'd like to contribute to the project, please follow these steps:
 4. Push to the branch: `git push origin feature/YourFeature`
 5. Open a pull request.
 
-## License
+## Chat-GPT
 
-This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
-
-```
-
-Copy and paste this content into your README.md file, and adjust any placeholders with your actual project details.
-```
+https://chat.openai.com/share/e1538433-1ea2-4aeb-a1cf-0f230a22e043
